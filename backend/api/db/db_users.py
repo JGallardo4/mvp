@@ -10,11 +10,8 @@ def create_user(username, password):
 def get_all_users():
     users = get("""
         SELECT 
-            Id AS userId, 
-            Email AS email,
-            Username AS username,
-            Bio AS bio, 
-            Birthdate AS birthdate
+            Id,
+            Username
         FROM 
             Users""")
 
@@ -23,11 +20,8 @@ def get_all_users():
 def get_user_by_id(user_id):    
     users = get("""
         SELECT
-            Id AS userId, 
-            Email AS email,
-            Username AS username,
-            Bio AS bio, 
-            Birthdate AS birthdate
+            Id, 
+            Username
         FROM 
             Users 
         WHERE Id = (?)""", [user_id])
@@ -66,6 +60,15 @@ def update_user(user_id, data):
                 Username = (?) 
             WHERE 
                 Id = (?)""", [data["username"], user_id])
+    
+    if data.get("password"):
+        put("""
+            UPDATE 
+                Users 
+            SET 
+                Password = (?) 
+            WHERE 
+                Id = (?)""", [data["password"], user_id])
 
 def delete_user(user_id):
     put("""

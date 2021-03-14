@@ -62,7 +62,7 @@ def api_key_required(function):
                 try:
                     return function()
                 except Exception as e:
-                    print("apy_key_error: ", e)  
+                    print("api_key_error: ", e)  
         except Exception as e:
             print(e)
             return make_response(jsonify({

@@ -15,23 +15,21 @@ users = Blueprint('/api/users', __name__)
 def get_users():
     userId = None
 
-    try:
-        userId = request.args["userId"]
-    except Exception as e:
-        print(e)
+    if request.args:
+        userId = request.args["userId"]    
         
-    if userId:        
-        user = db_users.get_user_by_id(userId)             
-        if user:
-            return make_response(jsonify(user), 200)
-        else:
-            return make_response(jsonify({"message": "User not found"}), 404)
+        if userId:        
+            user = db_users.get_user_by_id(userId)             
+            if user:
+                return make_response(jsonify(user), 200)
+            else:
+                return make_response(jsonify({"message": "User not found"}), 404)
     else:
         result = db_users.get_all_users()
-        if not result:
+        if result:
+            return make_response(jsonify(result), 200)
+        else:                
             return make_response(jsonify({"message": "No results found"}), 404)
-        else:
-            return make_response(jsonify(result), 200)    
 
 @users.route("/api/users", methods=["POST"])
 @api_key_required
@@ -62,12 +60,16 @@ def create_user():
 @api_key_required
 @token_required
 def update_user(user_id):
+    # import pdb
+    # pdb.set_trace()
     data = request.get_json()
-    allowed_fields = {"email", "username", "bio", "birthdate"}
+    allowed_fields = {"username", "password"}
     new_data = dict(filter(lambda elem: elem[0] in allowed_fields, data.items()))
 
     if new_data:
-        db_users.update_user(user_id, data)
+        if new_data.get("password"):
+            new_data["password"] = generate_hash(new_data.pop("password").encode('utf8'))
+        db_users.update_user(user_id, new_data)
     else:
         return make_response(jsonify({"message": "Incorrect data"}), 400)
 

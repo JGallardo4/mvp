@@ -17,11 +17,11 @@ def login_user():
         password_claim = data["password"].encode('utf8')       
 
         user = db_users.get_user_by_username(username)
-        stored_password = db_users.get_user_password(user[0]["userId"])
+        stored_password = db_users.get_user_password(user[0]["Id"])
 
         if check_hash(password_claim, stored_password):
-            db_sessions.log_user_in(user[0]["userId"])
-            token = generate_token(user[0]["userId"])
+            db_sessions.log_user_in(user[0]["Id"])
+            token = generate_token(user[0]["Id"])
             user[0].update({"loginToken": token})
             return make_response(jsonify(user), 201)
         else:
@@ -38,7 +38,7 @@ def logout_user():
     try:            
         data = request.get_json()
         raw_token = data["loginToken"]
-        decoded_token = jwt.decode(raw_token, secrets["secret_key"], algorithms=['HS256'])
+        decoded_token = jwt.decode(raw_token, secrets["crypto"]["secret_key"], algorithms=['HS256'])
         user_id = decoded_token["user_id"]
     except jwt.ExpiredSignatureError:
         pass                 
