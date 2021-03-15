@@ -1,5 +1,5 @@
 import json
-from datetime import date, datetime
+from datetime import datetime
 import requests
 from config_secrets import secrets
 
