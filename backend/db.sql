@@ -1,3 +1,5 @@
+GRANT ALL PRIVILEGES ON LuckyTracker.* TO 'lucky_tracker' @'localhost';
+
 --
 -- Table structure for table `Users`
 --
@@ -30,18 +32,6 @@ CREATE TABLE `Carriers` (
 	`Carrier` varchar(10) NOT NULL,
 	PRIMARY KEY (`Id`),
 	UNIQUE KEY `Carrier` (`Carrier`)
-);
-
---
--- Table structure for table `User_Settings`
---
-CREATE TABLE `User_Settings` (
-	`Id` INT(11) NOT NULL AUTO_INCREMENT,
-	`User_Id` INT(11) NOT NULL,
-	`Carrier_Id` INT(11) NOT NULL,
-	PRIMARY KEY (`Id`),
-	CONSTRAINT `FK_Users__User_Settings_User_Id` FOREIGN KEY (`User_Id`) REFERENCES `Users` (`Id`) ON DELETE CASCADE,
-	CONSTRAINT `FK_Carriers__User_Settings_Carrier_Id` FOREIGN KEY (`Carrier_Id`) REFERENCES `Carriers` (`Id`) ON DELETE CASCADE
 );
 
 --

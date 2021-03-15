@@ -60,8 +60,6 @@ def create_user():
 @api_key_required
 @token_required
 def update_user(user_id):
-    # import pdb
-    # pdb.set_trace()
     data = request.get_json()
     allowed_fields = {"username", "password"}
     new_data = dict(filter(lambda elem: elem[0] in allowed_fields, data.items()))
