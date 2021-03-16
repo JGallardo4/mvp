@@ -1,3 +1,5 @@
+CREATE USER 'lucky_tracker' @localhost IDENTIFIED BY 'Ky36C@R';
+
 GRANT ALL PRIVILEGES ON LuckyTracker.* TO 'lucky_tracker' @'localhost';
 
 --
