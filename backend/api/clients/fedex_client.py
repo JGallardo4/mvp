@@ -4,12 +4,6 @@ from datetime import datetime
 
 
 def get_tracking_info(fedex_api_key, password, account_number, meter_number, tracking_number):
-    # fedex_api_key='DNYRXOXH868NcqZJ'
-    # password='EWthM7Hrr2Q5QwMLFYvx9GNoT'
-    # account_number='630556872'
-    # meter_number='253098545'
-    # tracking_number: 921547188999
-
     fedex_config = FedexConfig(key=fedex_api_key,
                                password=password,
                                account_number=account_number,
@@ -38,15 +32,11 @@ def get_tracking_info(fedex_api_key, password, account_number, meter_number, tra
 
                 if hasattr(event_match, 'StatusExceptionDescription'):
                     event_details[j]['exception_description'] = event_match.StatusExceptionDescription
-# 2021-03-12T14:43:00-07:00
+
     for item in event_details:
         if item["type"] == "ACTUAL_PICKUP":
-            # pickup_date = item["date_time"]
-            # print(pickup_date)
             pickup_date = datetime.strptime(item["date_time"][0:10], "%Y-%m-%d")
         if item["type"] == "ACTUAL_DELIVERY":
-            # delivery_date = item["date_time"]
-            # print(delivery_date)
             delivery_date = datetime.strptime(item["date_time"][0:10], "%Y-%m-%d")
 
     if not delivery_date:
