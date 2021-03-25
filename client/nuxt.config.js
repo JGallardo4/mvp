@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'lucky-tracker',
+    title: 'client',
     htmlAttrs: {
       lang: 'en',
     },

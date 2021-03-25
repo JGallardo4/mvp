@@ -1,4 +1,4 @@
-# lucky-tracker
+# client
 
 ## Build Setup
 
