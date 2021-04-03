@@ -1,11 +1,5 @@
 <template>
   <main>
-    <h1 class="page-title">
-      Lucky
-      <span class="clover">🍀</span>
-      Tracker
-    </h1>
-
     <section class="page-content">
       <form class="form" @submit.prevent="track(carrier)">
         <div class="form-field">
@@ -235,62 +229,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lexend&display=swap");
+@use "../assets/css/mixins" as *;
+@use "../assets/css/variables" as *;
+
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Lexend&display=swap");
-
-@mixin resetButton() {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-}
-
-@mixin styleButton() {
-  @include resetButton;
-  border: 1px solid black;
-  background-color: #77b255;
-  color: black;
-  font-weight: bold;
-  border-radius: 10px;
-  padding: 1rem 1.5rem;
-  &:hover {
-    background-color: black;
-    color: white;
-  }
-  &.disabled {
-    background-color: gray;
-    color: black;
-    cursor: not-allowed;
-  }
-}
-
-$light-green: #f7fcf6;
-$charcoal: #2a2a2a;
-
-main {
-  padding: 1rem;
-  background-color: #315343;
-  color: white;
-  min-height: 100vh;
-  font-family: "Lexend", sans-serif;
-}
-
-.page-title {
-  font-size: x-large;
-  text-align: center;
-  padding-bottom: 3rem;
-  font-family: "Dela Gothic One", cursive;
-  .clover {
-    font-size: xx-large;
-  }
-}
 
 .page-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto;
   gap: 1rem;
 
   .form {
@@ -357,7 +303,7 @@ main {
 @media (max-width: 950px) {
   .page-content {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr auto;
     .form {
       grid-column: 1;
       grid-row: 1;

@@ -1,170 +1,25 @@
 <template>
+  <my-header></my-header>
   <router-view />
 </template>
 
+<script>
+import MyHeader from "./components/MyHeader.vue";
+export default {
+  components: { MyHeader },
+};
+</script>
+
 <style lang="scss">
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+@use "./assets/css/variables" as *;
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
+@import url("https://fonts.googleapis.com/css2?family=Lexend&display=swap");
 
-// End of reset
-
-html {
-  display: grid;
-  grid-template-columns: 1fr minmax(0, 1366px) 1fr;
-  place-items: center;
-
-  body {
-    width: 100%;
-    grid-column: 2;
-    header {
-      padding-bottom: 1rem;
-    }
-  }
-}
-
-a {
-  transition: color 0.2s ease-in-out;
-}
-a:hover {
-  color: #ea215a;
-  text-decoration: none;
-  border-bottom: #ea215a 0.125rem solid;
-}
-a:focus {
-  text-decoration: none;
-  padding: 8px 6px 5px 6px;
-  border-radius: 3px;
-  border-bottom: none;
-  box-shadow: inset 0px 0px 0px 0.12rem #ea215a;
-  outline: 2px solid #ea215a;
-  margin-left: -6px;
-  margin-right: -6px;
+main {
+  padding: 1rem;
+  color: white;
+  background-color: $dark-green;
+  min-height: 100vh;
+  font-family: "Lexend", sans-serif;
 }
 </style>

@@ -1,0 +1,36 @@
+@use "reset.scss";
+
+html {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 1366px) 1fr;
+  place-items: center;
+
+  body {
+    width: 100%;
+    grid-column: 2;
+    header {
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+// a {
+//   transition: color 0.2s ease-in-out;
+// }
+
+// a:hover {
+//   color: #ea215a;
+//   text-decoration: none;
+//   border-bottom: #ea215a 0.125rem solid;
+// }
+
+// a:focus {
+//   text-decoration: none;
+//   padding: 8px 6px 5px 6px;
+//   border-radius: 3px;
+//   border-bottom: none;
+//   box-shadow: inset 0px 0px 0px 0.12rem #ea215a;
+//   outline: 2px solid #ea215a;
+//   margin-left: -6px;
+//   margin-right: -6px;
+// }

@@ -1,0 +1,28 @@
+@mixin resetButton() {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+@mixin styleButton() {
+  @include resetButton;
+  border: 1px solid black;
+  background-color: #77b255;
+  color: black;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+  &.disabled {
+    background-color: gray;
+    color: black;
+    cursor: not-allowed;
+  }
+}

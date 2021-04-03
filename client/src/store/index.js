@@ -4,8 +4,7 @@ import router from "../router/index.js";
 
 export default createStore({
   state: {
-    userId: "",
-    userName: "",
+    user: null,
     loginToken: "",
   },
 
@@ -21,24 +20,23 @@ export default createStore({
     getLoginToken(state) {
       return state.loginToken;
     },
+
+    isLoggedIn(state) {
+      return state.loginToken !== "";
+    },
   },
 
   mutations: {
-    SET_USERID(state, payload) {
-      state.userId = payload;
+    SET_USER(state, payload) {
+      state.user = payload;
     },
 
     SET_LOGIN_TOKEN(state, payload) {
-      state.loginToken = String(payload);
-    },
-
-    SET_USERNAME(state, payload) {
-      state.userName = payload;
+      state.loginToken = payload;
     },
 
     DELETE_USERDATA(state) {
-      state.userId = "";
-      state.userName = "";
+      state.user = null;
       state.loginToken = "";
     },
   },
