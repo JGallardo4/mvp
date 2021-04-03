@@ -9,8 +9,8 @@
           <option value="">Select a carrier</option>
           <option
             v-for="(option, index) in carrierOptions"
-            :value="option.value"
             :key="index"
+            :value="option.value"
           >
             {{ option.text }}
           </option>
@@ -88,7 +88,12 @@
           <input id="lucky-tracker-api-key" v-model="luckyTrackerApiKey" />
         </div>
 
-        <button class="form-button" type="submit" value="Get delivery time.">
+        <button
+          class="form-button"
+          type="submit"
+          value="Get delivery time."
+          @click="clearResult()"
+        >
           Get Delivery Time
         </button>
       </template>
@@ -99,8 +104,8 @@
     </form>
 
     <div v-if="result !== ''">
-      <p>Carrier: {{ carrier }}</p>
-      <p>Tracking number: {{}}</p>
+      <p>Carrier: {{ resultShipment["carrier"] }}</p>
+      <p>Tracking number: {{ resultShipment["trackingNumber"] }}</p>
       <p>Pickup date: {{ result.pickupDate }}</p>
       <p>
         Delivery date:
@@ -123,76 +128,6 @@
 <script>
 export default {
   name: "Track",
-
-  methods: {
-    clearResult: function () {
-      this.result === "";
-      this.resultShipment === null;
-    },
-
-    track: function (carrier) {
-      var payload = null;
-
-      var baseUrl = "https://luckytracker.tk/api";
-
-      if (carrier === "ups") {
-        payload = {
-          username: this.upsUserName,
-          password: this.upsPassword,
-          accessLicenseNumber: this.upsAccessLicenseNumber,
-          trackingNumber: this.upsTrackingNumber,
-        };
-
-        this.axios
-          .post(baseUrl + "/ups", payload, {
-            headers: {
-              "X-Api-Key": this.luckyTrackerApiKey,
-            },
-          })
-          .then((response) => {
-            if (response.status === 201) {
-              console.log(response);
-              this.result = response.data;
-              this.resultShipment["carrier"] = "UPS";
-              this.resultShipment["trackingNumber"] = this.upsTrackingNumber;
-            } else {
-              console.log("failure");
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else if (carrier == "fedex") {
-        payload = {
-          fedexApiKey: this.fedexApiKey,
-          password: this.fedexPassword,
-          accountNumber: this.fedexAccountNumber,
-          meterNumber: this.fedexMeterNumber,
-          trackingNumber: this.fedexTrackingNumber,
-        };
-
-        this.axios
-          .post(baseUrl + "/fedex", payload, {
-            headers: {
-              "X-Api-Key": this.luckyTrackerApiKey,
-            },
-          })
-          .then((response) => {
-            if (response.status === 200) {
-              this.result = response.data;
-              this.resultShipment["carrier"] = "Fed";
-              this.resultShipment["trackingNumber"] = this.fedexTrackingNumber;
-              console.log(response);
-            } else {
-              console.log("failure");
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    },
-  },
 
   data() {
     return {
@@ -219,6 +154,78 @@ export default {
         trackingNumber: "",
       },
     };
+  },
+
+  methods: {
+    clearResult: function () {
+      this.result = "";
+      this.resultShipment = null;
+    },
+
+    track: function (carrier) {
+      var payload = null;
+
+      // var baseUrl = "https://luckytracker.tk/api";
+
+      if (carrier === "ups") {
+        payload = {
+          username: this.upsUserName,
+          password: this.upsPassword,
+          accessLicenseNumber: this.upsAccessLicenseNumber,
+          trackingNumber: this.upsTrackingNumber,
+        };
+
+        this.axios
+          .post("/ups", payload, {
+            headers: {
+              "X-Api-Key": this.luckyTrackerApiKey,
+            },
+          })
+          .then((response) => {
+            if (response.status === 201) {
+              this.result = response.data;
+              this.resultShipment = {
+                carrier: "UPS",
+                trackingNumber: this.upsTrackingNumber,
+              };
+            } else {
+              console.log("failure");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (carrier == "fedex") {
+        payload = {
+          fedexApiKey: this.fedexApiKey,
+          password: this.fedexPassword,
+          accountNumber: this.fedexAccountNumber,
+          meterNumber: this.fedexMeterNumber,
+          trackingNumber: this.fedexTrackingNumber,
+        };
+
+        this.axios
+          .post("/fedex", payload, {
+            headers: {
+              "X-Api-Key": this.luckyTrackerApiKey,
+            },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              this.result = response.data;
+              this.resultShipment = {
+                carrier: "FedEx",
+                trackingNumber: this.fedexTrackingNumber,
+              };
+            } else {
+              console.log("failure");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
   },
 };
 </script>
