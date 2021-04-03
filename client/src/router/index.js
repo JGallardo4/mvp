@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Track from "../views/Track.vue";
-import Login from "../views/Login.vue";
+import LoginRegister from "../views/LoginRegister.vue";
 import Register from "../views/Register.vue";
 
 const routes = [
@@ -10,9 +10,9 @@ const routes = [
     component: Track,
   },
   {
-    path: "/login",
-    name: "Login",
-    component: Login,
+    path: "/login-register",
+    name: "LoginRegister",
+    component: LoginRegister,
   },
   {
     path: "/register",

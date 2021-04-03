@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 @mixin resetButton() {
   background: none;
   color: inherit;
@@ -9,7 +11,7 @@
 }
 
 @mixin styleButton() {
-  @include resetButton;
+  @include resetButton();
   border: 1px solid black;
   background-color: #77b255;
   color: black;
@@ -24,5 +26,28 @@
     background-color: gray;
     color: black;
     cursor: not-allowed;
+  }
+}
+
+@mixin styleForm() {
+  display: grid;
+  gap: 1rem;
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: $light-green;
+    color: $charcoal;
+    border-radius: 5px;
+
+    label {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .form-button {
+    @include styleButton();
+    place-self: center;
   }
 }

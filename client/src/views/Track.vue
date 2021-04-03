@@ -249,27 +249,9 @@ export default {
 }
 
 .form {
-  display: grid;
-  gap: 1rem;
+  @include styleForm();
 
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: $light-green;
-    color: $charcoal;
-    border-radius: 5px;
-
-    label {
-      padding-bottom: 0.5rem;
-    }
-  }
-
-  .form-button {
-    @include styleButton;
-    place-self: center;
-  }
-  .form-button::after {
+  .form-button:after {
     content: "→";
   }
 }
