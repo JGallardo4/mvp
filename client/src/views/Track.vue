@@ -323,6 +323,9 @@ main {
     @include styleButton;
     place-self: center;
   }
+  .form-button::after {
+    content: "→";
+  }
 }
 
 .shipment-info {
@@ -348,6 +351,26 @@ main {
 
   .placeholder {
     padding: 5rem;
+  }
+}
+
+@media (max-width: 950px) {
+  .page-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    .form {
+      grid-column: 1;
+      grid-row: 1;
+
+      .form-button::after {
+        content: "↓";
+      }
+    }
+
+    .shipment-info {
+      grid-column: 1;
+      grid-row: 2;
+    }
   }
 }
 </style>
