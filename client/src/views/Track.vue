@@ -1,6 +1,10 @@
 <template>
   <main>
-    <h1 class="page-title">Lucky Tracker</h1>
+    <h1 class="page-title">
+      Lucky
+      <span class="clover">🍀</span>
+      Tracker
+    </h1>
 
     <form class="form" @submit.prevent="track(carrier)">
       <div class="form-field">
@@ -231,22 +235,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lexend&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Lexend&display=swap");
+
+@mixin resetButton() {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 main {
   padding: 1rem;
+  background-color: #315343;
+  color: white;
+  min-height: 100vh;
 }
 
 .page-title {
   font-size: x-large;
   text-align: center;
+  padding-bottom: 1rem;
+  font-family: "Dela Gothic One", cursive;
+  .clover {
+    font-size: xx-large;
+  }
 }
 
 .form {
   display: grid;
+  gap: 1rem;
+  font-family: "Lexend", sans-serif;
 
   .form-field {
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    background-color: #f7fcf6;
+    color: #2a2a2a;
+    border-radius: 5px;
 
     label {
       padding-bottom: 0.5rem;
@@ -254,7 +284,23 @@ main {
   }
 
   .form-button {
+    @include resetButton;
     place-self: center;
+    border: 1px solid black;
+    background-color: #77b255;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+    &.disabled {
+      background-color: gray;
+      color: black;
+      cursor: not-allowed;
+    }
   }
 }
 </style>
