@@ -17,12 +17,21 @@
       <template v-if="mode !== ''">
         <div class="form-field">
           <label for="user-name">Username</label>
-          <input id="user-name" v-model="userInfo.userName" />
+          <input id="user-name" v-model="userInfo.username" />
         </div>
 
         <div class="form-field">
           <label for="password">Password</label>
           <input id="password" v-model="userInfo.password" type="password" />
+        </div>
+
+        <div class="form-field">
+          <label for="lucky-tracker-api-key">Lucky Tracker API Key</label>
+          <input
+            id="lucky-tracker-api-key"
+            v-model="luckyTrackerApiKey"
+            type="password"
+          />
         </div>
 
         <button class="form-button" type="submit" value="Get delivery time.">
@@ -45,9 +54,10 @@ export default {
         { text: "Register", value: "register" },
       ],
       userInfo: {
-        userName: "",
+        username: "",
         password: "",
       },
+      luckyTrackerApiKey: "",
     };
   },
 
@@ -58,23 +68,6 @@ export default {
   },
 
   methods: {
-    login: function (userInfo) {
-      this.$store.commit("SET_USER", {
-        userId: "1",
-        userName: userInfo.userName,
-        loginToken: "myLoginToken123",
-      });
-
-      this.$router.push("/");
-    },
-
-    register: function (userInfo) {
-      this.$store.commit("SET_USER", {
-        user: userInfo.userName,
-        loginToken: "myLoginToken123",
-      });
-    },
-
     action: function (userInfo) {
       if (this.mode === "login") {
         return this.login(userInfo);
@@ -82,6 +75,53 @@ export default {
         return this.register(userInfo);
       }
     },
+
+    login(userInfo) {
+      this.axios
+        .post("/login", userInfo, {
+          headers: {
+            "X-Api-Key": this.luckyTrackerApiKey,
+          },
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            var responseData = response.data[0];
+
+            this.$store.commit("SET_USER", {
+              userId: responseData["Id"],
+              userName: responseData["Username"],
+              loginToken: responseData["loginToken"],
+            });
+
+            this.$router.push("/");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    // register(userInfo) {
+    //   return new Promise((resolve, reject) => {
+    //     axios
+    //       .post("/users", payload)
+    //       .then((response) => {
+    //         if (response.status === 201) {
+    //           dispatch("logIn", {
+    //             email: payload["email"],
+    //             password: payload["password"],
+    //           });
+    //           dispatch("redirect", "/");
+    //           resolve(response);
+    //         } else {
+    //           reject(response);
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         reject(error);
+    //       });
+    //   });
+    // },
   },
 };
 </script>
