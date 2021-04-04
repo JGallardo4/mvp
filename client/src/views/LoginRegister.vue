@@ -101,27 +101,30 @@ export default {
         });
     },
 
-    // register(userInfo) {
-    //   return new Promise((resolve, reject) => {
-    //     axios
-    //       .post("/users", payload)
-    //       .then((response) => {
-    //         if (response.status === 201) {
-    //           dispatch("logIn", {
-    //             email: payload["email"],
-    //             password: payload["password"],
-    //           });
-    //           dispatch("redirect", "/");
-    //           resolve(response);
-    //         } else {
-    //           reject(response);
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         reject(error);
-    //       });
-    //   });
-    // },
+    register(userInfo) {
+      this.axios
+        .post("/users", userInfo, {
+          headers: {
+            "X-Api-Key": this.luckyTrackerApiKey,
+          },
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            var responseData = response.data[0];
+
+            this.$store.commit("SET_USER", {
+              userId: responseData["Id"],
+              userName: responseData["Username"],
+              loginToken: responseData["loginToken"],
+            });
+
+            this.$router.push("/");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
