@@ -1,5 +1,7 @@
 @use "variables" as *;
 
+@import url("https://fonts.googleapis.com/css2?family=Lexend&display=swap");
+
 @mixin resetButton() {
   background: none;
   color: inherit;
@@ -13,7 +15,7 @@
 @mixin styleButton() {
   @include resetButton();
   border: 1px solid black;
-  background-color: #77b255;
+  background-color: $bright-green;
   color: black;
   font-weight: bold;
   border-radius: 10px;
@@ -50,4 +52,8 @@
     @include styleButton();
     place-self: center;
   }
+}
+
+@mixin mainFont() {
+  font-family: "Lexend", sans-serif;
 }

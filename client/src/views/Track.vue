@@ -232,8 +232,6 @@ export default {
 @use "../assets/css/mixins" as *;
 @use "../assets/css/variables" as *;
 
-@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Lexend&display=swap");
-
 .page-content {
   display: grid;
   grid-template-columns: auto auto;

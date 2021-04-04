@@ -1,28 +1,36 @@
 import { createStore } from "vuex";
 import axios from "axios";
 import router from "../router/index.js";
+import VuexPersistence from "vuex-persist";
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+});
 
 export default createStore({
   state: {
-    user: null,
-    loginToken: "",
+    user: {
+      userId: "",
+      userName: "",
+      loginToken: "",
+    },
   },
 
   getters: {
     getUserName(state) {
-      return state.userName;
+      return state.user["userName"];
     },
 
     getUserId(state) {
-      return state.userId;
+      return state.user["userId"];
     },
 
     getLoginToken(state) {
-      return state.loginToken;
+      return state.user["loginToken"];
     },
 
     isLoggedIn(state) {
-      return state.loginToken !== "";
+      return state.user["loginToken"] !== "";
     },
   },
 
@@ -31,13 +39,12 @@ export default createStore({
       state.user = payload;
     },
 
-    SET_LOGIN_TOKEN(state, payload) {
-      state.loginToken = payload;
-    },
-
     DELETE_USERDATA(state) {
-      state.user = null;
-      state.loginToken = "";
+      state.user = {
+        userId: "",
+        userName: "",
+        loginToken: "",
+      };
     },
   },
 
@@ -143,4 +150,6 @@ export default createStore({
       }
     },
   },
+
+  plugins: [vuexLocal.plugin],
 });

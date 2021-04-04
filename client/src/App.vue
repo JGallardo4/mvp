@@ -12,14 +12,13 @@ export default {
 
 <style lang="scss">
 @use "./assets/css/variables" as *;
-
-@import url("https://fonts.googleapis.com/css2?family=Lexend&display=swap");
+@use "./assets/css/mixins" as *;
 
 main {
   padding: 1rem;
   color: white;
   background-color: $dark-green;
   min-height: 100vh;
-  font-family: "Lexend", sans-serif;
+  @include mainFont();
 }
 </style>
