@@ -135,7 +135,6 @@ export default {
         { text: "FedEx", value: "fedex" },
         { text: "Purolator", value: "purolator" },
       ],
-      trackingNumber: "",
       upsUserName: "",
       upsAccessLicenseNumber: "",
       upsPassword: "",
@@ -162,8 +161,6 @@ export default {
 
     track: function (carrier) {
       var payload = null;
-
-      // var baseUrl = "https://luckytracker.tk/api";
 
       if (carrier === "ups") {
         payload = {
@@ -210,7 +207,11 @@ export default {
           })
           .then((response) => {
             if (response.status === 200) {
-              this.result = response.data;
+              this.result = {
+                deliveryDate: response.data["delivery_date"],
+                pickupDate: response.data["pickup_date"],
+                deliveryTime: response.data["deliveryTime"],
+              };
               this.resultShipment = {
                 carrier: "FedEx",
                 trackingNumber: this.fedexTrackingNumber,
